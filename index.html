@@ -129,7 +129,7 @@
       $("#currentDay").html("Today is " + moment().format("dddd, MMMM Do YYYY, h:mm a"));
 
       //define rows and columns to be added
-      for (var i = 0; i < 8; i++) {
+      for (var i = 0; i < 9; i++) {
       var rowDiv = $("<div>");
       rowDiv.addClass("row");
 
@@ -138,27 +138,41 @@
 
       var timePeriod = $("<p>");
       timePeriod.addClass("hour");
+        if (i > 3) {
+          timePeriod.text(i - 3 + "pm")
+        }
+        else {
+          timePeriod.text(i + 9 + "am")
+        }
 
-      var colDiv = $("<div>");
-      colDiv.addClass("col-10");
+      var colDiv9 = $("<div>");
+      colDiv9.addClass("col-9");
+
+      var colDiv2 = $("<div>");
+      colDiv2.addClass("col-2");
 
       var input = $("<input>")
       input.addClass("description")
       input.attr("data-index", i + 9);
-      input.attr("style", "width = 100%")
+      input.attr("style", "width: 100%")
+
+      var saveBtn = $("<button>");
+      saveBtn.addClass("saveBtn");
 
 
-        $("#container").append(rowDiv);
+        $(".container").append(rowDiv);
         rowDiv.append(tbDiv);
-        rowDiv.append(colDiv);
+        rowDiv.append(colDiv9);
+        rowDiv.append(colDiv2);
         tbDiv.append(timePeriod);
-        colDiv.append(input)
+        colDiv9.append(input)
+        colDiv2.append(saveBtn)
       }
 
       var currentTime = moment().format("HH")
         var index = $("input").get("data-index");
-      if ("input", index > currentTime) {
-        $("#textbox").addClass("past")
+      if ("input", "index" > currentTime) {
+        input.addClass("past")
       }
     </script>
   </body>

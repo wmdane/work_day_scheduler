@@ -18,6 +18,11 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.25.0/luxon.min.js"
       integrity="sha512-OyrI249ZRX2hY/1CAD+edQR90flhuXqYqjNYFJAiflsKsMxpUYg5kbDDAVA8Vp0HMlPG/aAl1tFASi1h4eRoQw=="
       crossorigin="anonymous"
@@ -34,22 +39,126 @@
 
     <div class="container">
       <!-- Timeblocks go here -->
-    </div>
+
+      <!-- <div class="row">
+        <div class="time-block">
+          <p class="hour">9am</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "9" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">10am</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "10" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">11am</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "11" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">12pm</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "12" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">1pm</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "13" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">2pm</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "14" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">3pm</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "15" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">4pm</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "16" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="time-block">
+          <p class="hour">5pm</p>
+        </div>
+        <div class="col-10">
+          <input id="textbox" data-index = "17" type="text" class="description" style="width: 100%;"></input>
+        </div>
+      </div> -->
+
+     
 
     <script type="text/javascript">
       //Define Date
       var DateTime = luxon.DateTime;
-      $("#currentDay").html("Today is " + DateTime.local().toLocaleString());
+      $("#currentDay").html("Today is " + moment().format("dddd, MMMM Do YYYY, h:mm a"));
 
       //define rows and columns to be added
+      for (var i = 0; i < 8; i++) {
       var rowDiv = $("<div>");
       rowDiv.addClass("row");
 
-      var colDiv = $("<div>");
-      colDiv.addClass("time-block");
+      var tbDiv = $("<div>");
+      tbDiv.addClass("time-block");
 
-      for (var i = 0; i < 8; i++) {
+      var timePeriod = $("<p>");
+      timePeriod.addClass("hour");
+
+      var colDiv = $("<div>");
+      colDiv.addClass("col-10");
+
+      var input = $("<input>")
+      input.addClass("description")
+      input.attr("data-index", i + 9);
+      input.attr("style", "width = 100%")
+
+
         $("#container").append(rowDiv);
+        rowDiv.append(tbDiv);
+        rowDiv.append(colDiv);
+        tbDiv.append(timePeriod);
+        colDiv.append(input)
+      }
+
+      var currentTime = moment().format("HH")
+        var index = $("input").get("data-index");
+      if ("input", index > currentTime) {
+        $("#textbox").addClass("past")
       }
     </script>
   </body>

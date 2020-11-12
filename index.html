@@ -128,6 +128,15 @@
       var DateTime = luxon.DateTime;
       $("#currentDay").html("Today is " + moment().format("dddd, MMMM Do YYYY, h:mm a"));
 
+      var savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+      if (savedNotes === null) {
+        var newArray = []
+      }else {
+      input[i + 9].text(savedNotes[i]);
+
+      }
+
+
       //define rows and columns to be added
       for (var i = 0; i < 9; i++) {
       var rowDiv = $("<div>");
@@ -153,11 +162,13 @@
 
       var input = $("<input>")
       input.addClass("description")
-      input.attr("data-index", i + 9);
+      input.attr("id", i + 9);
       input.attr("style", "width: 100%")
+      
 
       var saveBtn = $("<button>");
       saveBtn.addClass("saveBtn");
+      saveBtn.text("Save")
 
 
         $(".container").append(rowDiv);
@@ -167,13 +178,29 @@
         tbDiv.append(timePeriod);
         colDiv9.append(input)
         colDiv2.append(saveBtn)
+        colorChange();
       }
 
-      var currentTime = moment().format("HH")
-        var index = $("input").get("data-index");
-      if ("input", "index" > currentTime) {
-        input.addClass("past")
+      //sets each input area to its proper color
+      function colorChange() {
+        var currentTime = moment().hours();
+      
+        $(".description").each(function() {
+         var boxId = parseInt($(this).attr("id"));
+          if (boxId < currentTime) {
+          input.addClass("past")
+        } else if (boxId > currentTime) {
+          input.addClass("future");
+        } else {
+          input.addClass("present")
+        }
+      })
       }
+
+      //save function
+      saveBtn.on("click", function() {
+
+      })
     </script>
   </body>
 </html>

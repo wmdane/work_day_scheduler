@@ -128,14 +128,7 @@
       var DateTime = luxon.DateTime;
       $("#currentDay").html("Today is " + moment().format("dddd, MMMM Do YYYY, h:mm a"));
 
-      var savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
-      // if (savedNotes === null) {
-      //   return
-      // }else {
-      // input[i + 9].text(savedNotes[i]);
-
-      // }
-
+      
 
       //define rows and columns to be added
       for (var i = 0; i < 9; i++) {
@@ -188,6 +181,12 @@
         colDiv9.append(input)
         colDiv1.append(saveBtn)
         colorChange();
+        
+      //load any saved notes. This alone took 3 hours of tweaking. Do better id assignment next time. Also did not need to parse this which threw me off.
+      var savedNotes = localStorage.getItem("time" + (i + 9));
+      if (savedNotes !== null) {
+        $("#" + (i + 9)).text(savedNotes);
+      }
       }
 
       //sets each input area to its proper color
@@ -206,10 +205,13 @@
       })
       }
 
+
       //save function
-      saveBtn.on("click", function() {
+      //need to find a way to say Take the data-block value of the button clicked and find the text area with the coresponding id and then store that text area's text into local storage
+      $(".saveBtn").on("click", function() {
         var clickedBtn = $(this).attr("data-block");
-        var text = $(input)
+        var note = $("#" + clickedBtn).val()
+        localStorage.setItem("time" + clickedBtn, note)
       })
     </script>
   </body>

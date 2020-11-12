@@ -129,12 +129,12 @@
       $("#currentDay").html("Today is " + moment().format("dddd, MMMM Do YYYY, h:mm a"));
 
       var savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
-      if (savedNotes === null) {
-        var newArray = []
-      }else {
-      input[i + 9].text(savedNotes[i]);
+      // if (savedNotes === null) {
+      //   return
+      // }else {
+      // input[i + 9].text(savedNotes[i]);
 
-      }
+      // }
 
 
       //define rows and columns to be added
@@ -159,25 +159,34 @@
 
       var colDiv2 = $("<div>");
       colDiv2.addClass("col-2");
+      
+      var colDiv1 = $("<div>");
+      colDiv2.addClass("col-1");
 
-      var input = $("<input>")
-      input.addClass("description")
+      var input = $("<textarea>");
+      input.addClass("textarea");
       input.attr("id", i + 9);
-      input.attr("style", "width: 100%")
+      input.attr("style", "width: 100%; height: 100%");
+      
+      
       
 
       var saveBtn = $("<button>");
       saveBtn.addClass("saveBtn");
-      saveBtn.text("Save")
+      saveBtn.text("Save");
+      saveBtn.attr("data-block", i + 9);
+      saveBtn.attr("style", "width: 100%; height: 100%");
+     
 
 
         $(".container").append(rowDiv);
-        rowDiv.append(tbDiv);
-        rowDiv.append(colDiv9);
+        colDiv2.append(tbDiv);
         rowDiv.append(colDiv2);
+        rowDiv.append(colDiv9);
+        rowDiv.append(colDiv1);
         tbDiv.append(timePeriod);
         colDiv9.append(input)
-        colDiv2.append(saveBtn)
+        colDiv1.append(saveBtn)
         colorChange();
       }
 
@@ -185,7 +194,7 @@
       function colorChange() {
         var currentTime = moment().hours();
       
-        $(".description").each(function() {
+        $(".textarea").each(function() {
          var boxId = parseInt($(this).attr("id"));
           if (boxId < currentTime) {
           input.addClass("past")
@@ -199,7 +208,8 @@
 
       //save function
       saveBtn.on("click", function() {
-
+        var clickedBtn = $(this).attr("data-block");
+        var text = $(input)
       })
     </script>
   </body>
